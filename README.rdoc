@@ -88,9 +88,11 @@ Customized callback to display an error message
 This callback is optional, the default error callback shows an alert(errorMessage)
 
   var tweetsErrorCallback = function(errorMessage, tweet){
-    var msg = 'Oops! <a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a>';
-    msg += 'Try again later or search <a href="http://twitter.com/search?q=' + tweet.toQuery() + '">directly on Twitter</a>';
-    $('#tweets').html(msg);
+	var msg = 'Oops! \
+		<a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a>. \
+		Try again later or search \
+		<a href="http://twitter.com/search?q=' + tweet.toQuery() + '">directly on Twitter</a>';
+	$('#tweets').html(msg);
   }
 
 === Create a search query
