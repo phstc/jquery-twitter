@@ -22,7 +22,7 @@
 			*/
 			var tweetsErrorCallback = function(errorMessage, tweet){
 				var msg = 'Oops! \
-					<a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a> \
+					<a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a>. \
 					Try again later or search \
 					<a href="http://twitter.com/search?q=' + tweet.toQuery() + '">directly on Twitter</a>';
 				$('#tweets').html(msg);
@@ -59,7 +59,7 @@
 				Here is the example of the plugin usage
 				*/
 				var tweets = Twitter.tweets();
-				tweets.containing('').all(tweetsSuccessCallback, tweetsErrorCallback);
+				tweets.containing('pablocantero').all(tweetsSuccessCallback, tweetsErrorCallback);
 			});
 			})();
 			</script>
