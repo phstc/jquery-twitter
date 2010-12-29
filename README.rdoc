@@ -1,4 +1,4 @@
-= It's a Twitter Search Library implemented using jQuery
+= jQuery Twitter Search Library
 
 == Why?
 
