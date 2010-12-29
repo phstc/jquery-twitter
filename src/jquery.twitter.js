@@ -11,18 +11,32 @@ var Twitter = {
 	tweets: function(){
 		var query = '';
 		var from = '';
-		var limit = 100; /*rpp: Optional. The number of tweets to return per page, up to a max of 100*/
-		var page = 1; /*page: Optional. The page number (starting at 1) to return, up to a max of roughly 1500 results*/
+		var to = '';
+		/*
+		rpp: Optional. The number of tweets to return per page, up to a max of 100
+		*/
+		var limit = 100;
+		/*
+		page: Optional. The page number (starting at 1) to return, up to a max of roughly 1500 results
+		*/
+		var page = 1;
 		var searchUrl = 'http://search.twitter.com/search.json?q=';
 		var instance = this;
+		/*
+		result_type: 
+		mixed: In a future release this will become the default value. Include both popular and real time results in the response.
+		recent: The current default value. Return only the most recent results in the response.
+		popular: Return only the most popular results in the response.
+		*/
+		var order = 'recent';
 		var sanitize = function(value){
 			var sanitized = value;
-			// sanitized = sanitized.replace(/#/g, '%23');
-			// sanitized = sanitized.replace(/@/g, '%40');
-			// sanitized = sanitized.replace(/ /g, '%20');
-			// sanitized = sanitized.replace(/\//g, '%2F');
-			// sanitized = sanitized.replace(/\\/g, '%5C');
-			// sanitized = sanitized.replace(/\:/g, '%3A');
+			/* sanitized = sanitized.replace(/#/g, '%23'); */
+			/* sanitized = sanitized.replace(/@/g, '%40'); */
+			/* sanitized = sanitized.replace(/ /g, '%20'); */
+			/* sanitized = sanitized.replace(/\//g, '%2F'); */
+			/* sanitized = sanitized.replace(/\\/g, '%5C'); */
+			/* sanitized = sanitized.replace(/\:/g, '%3A'); */
 			return sanitized;
 		};
 		var publicMethods =  {
@@ -49,8 +63,16 @@ var Twitter = {
 			page: function(_page){
 				page = _page
 			},
+			to: function(_to){
+				to = '+to:' + _to.replace('@', ' ');
+				return this;
+			},
+			order: function(_order){
+				order = _order
+				return this;
+			},
 			toQuery: function(){
-				return query + from + '&rpp=' + limit + '&page=' + page;
+				return query + from + to + '&rpp=' + limit + '&page=' + page;
 			},
 			all: function(succees, error){
 				if(error == null){

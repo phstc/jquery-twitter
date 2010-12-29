@@ -17,7 +17,14 @@ The availiable plugins on the internet use an ugly syntax to search
 Twitter Search Library is DSL based
 
   var tweets = new Twitter.tweets();
-  tweets.containing('hello').and('world').from('pablocantero).limit(4).all(function(data){ alert("It’s a customized function to display the tweets");});
+  tweets.containing('hello')
+	.and('world')
+	.from('pablocantero)
+	.limit(4)
+	.order('recent')
+	.all(function(data){ 
+		alert("It’s a customized function to display the tweets");
+	});
 
 == The Twitter Search API
 

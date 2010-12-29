@@ -5,56 +5,81 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen" />
 	<script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
-	<script type="text/javascript" src="jquery.twitter.js"></script>
+	<script type="text/javascript" src="../src/jquery.twitter.js"></script>
 
 	<script>
 	$(document).ready(function(){
 		
 		test("test all conditions", function() {
 			var tweets = new Twitter.tweets();
-			tweets.containing('hello').and('world').or('zombies').from('pablocantero').limit(4).page(2);
-			ok(tweets.toQuery(), 'hello%20world+OR+zombies%20from%3Apablocantero&rpp=4&page=2');
+			tweets.containing('hello')
+				.and('world')
+				.or('zombies')
+				.from('pablocantero')
+				.to('homer_simpson_oficial')
+				.limit(4)
+				.order('popular')
+				.page(2);
+			ok(tweets.toQuery(), 'hello%20world+OR+zombies%20from%3Apablocanteroto%3Ahomer_simpson_oficial&rpp=4&page=2&result_type=popular');
 		});
 
 		test("test containing condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello')
-			ok(tweets.toQuery(), 'hello&rpp=100&page=1');
+			ok(tweets.toQuery(), 'hello&rpp=100&page=1&result_type=popular');
 		});
 		
 		test("test and condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello').and('world')
-			ok(tweets.toQuery(), 'hello%20world&rpp=100&page=1');
+			ok(tweets.toQuery(), 'hello%20world&rpp=100&page=1&result_type=popular');
 		});
 		
 		test("test or condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello').or('world')
-			ok(tweets.toQuery(), 'hello+OR+world&rpp=100&page=1');
+			ok(tweets.toQuery(), 'hello+OR+world&rpp=100&page=1&result_type=popular');
 		});
 		
 		test("test from condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello world').from('pablocantero')
-			ok(tweets.toQuery(), 'hello world%20from=%3Apablocantero&rpp=100&page=1');
+			ok(tweets.toQuery(), 'hello world%20from=%3Apablocantero&rpp=100&page=1&result_type=popular');
 			
 			//Test removing @
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello world').from('@pablocantero')
-			ok(tweets.toQuery(), 'hello world%20from=%3Apablocantero&rpp=100&page=1');
+			ok(tweets.toQuery(), 'hello world%20from=%3Apablocantero&rpp=100&page=1&result_type=popular');
+		});
+		
+		test("test to condition", function() {
+			var tweets = new Twitter.tweets();
+			tweets.containing('hello world').to('pablocantero')
+			ok(tweets.toQuery(), 'hello world%20to=%3Apablocantero&rpp=100&page=1&result_type=popular');
+			
+			//Test removing @
+			var tweets = new Twitter.tweets();
+			tweets.containing('hello world').from('@pablocantero')
+			ok(tweets.toQuery(), 'hello world%20to=%3Apablocantero&rpp=100&page=1&result_type=popular');
 		});
 		
 		test("test limit condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.limit(4)
-			ok(tweets.toQuery(), '&rpp=4&page=1');
+			ok(tweets.toQuery(), '&rpp=4&page=1&result_type=popular');
 		});
 		
 		test("test page condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.page(4)
-			ok(tweets.toQuery(), '&rpp=100&page=4');
+			ok(tweets.toQuery(), '&rpp=100&page=4&result_type=popular');
+		});
+		
+		test("test order condition", function() {
+			var tweets = new Twitter.tweets();
+			ok(tweets.toQuery(), '&rpp=100&page=4&result_type=recent');
+			tweets.order('mixed');
+			ok(tweets.toQuery(), '&rpp=100&page=4&result_type=mixed');
 		});
 		
 		test("test success callback", function() {
