@@ -105,3 +105,5 @@ To execute the Test suite, just open jquery.twitter-test.html in your browser. T
 == Do you want to improve the jQuery Twitter Library
 
 You’re welcome to make your contributions and send them as a pull request or just send me a message http://pablocantero.com/blog/contato/
+
+http://pablocantero.com/blog/2010/12/29/jquery-twitter-search-library/
