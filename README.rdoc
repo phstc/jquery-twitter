@@ -28,7 +28,7 @@ Twitter Search Library is DSL based
 
 == The Twitter Search API
 
-This plugin follows the Twitter Search API documentation
+This library follows the Twitter Search API documentation
 
 Twitter Search API Method: search
 http://apiwiki.twitter.com/w/page/22554756/Twitter-Search-API-Method:-search
