@@ -33,6 +33,19 @@ This plugin follow the Twitter Search API documentation
 Twitter Search API Method: search
 http://apiwiki.twitter.com/w/page/22554756/Twitter-Search-API-Method:-search
 
+=== Implemented conditions 
+
+The actual conditions were implemented on-demand. If you want a new condition, please see "Do you want to improve the jQuery Twitter Library"
+
+ * conditions([text or hashtag])
+ * and([text or hashtag])
+ * or([text or hashtag])
+ * from([twitter username])
+ * to([twitter username])
+ * order([mixed, recent or popular]) - default recent
+ * limit([0..100]) - default 100
+ * page([page num]) - default 1 
+
 == Example
 
 The full example is availiable on https://gist.github.com/758666
@@ -93,4 +106,4 @@ To execute the Test suite, just open jquery.twitter-test.html in your browser. T
 
 == Do you want to improve the jQuery Twitter Library
 
-You’re welcome to make your contributions and send them as a pull request
+You’re welcome to make your contributions and send them as a pull request or just send me a message http://pablocantero.com/blog/contato/
