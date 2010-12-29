@@ -4,7 +4,7 @@
 
 The most part of the jQuery Twitter plugins availiable on the internet, are made for search AND display the tweets
 
-In the projects that I worked, that needed display the tweets, the layout for display the tweets was specific to the project, I could not to use the plugin’s layout
+In the projects that I worked, that needed display the tweets, the layout for display the tweets was specific to the project. I could not to use the plugin’s layout
 
 The main idea of Twitter Search Library is only for tweets’s search. You need to implement the layout for display the tweets
 
