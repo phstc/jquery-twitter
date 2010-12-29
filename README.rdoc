@@ -30,75 +30,60 @@ http://apiwiki.twitter.com/w/page/22554756/Twitter-Search-API-Method:-search
 
 This example is availiable in jquery-twitter/example.html and https://gist.github.com/758591
 
-  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
-  	"http://www.w3.org/TR/html4/loose.dtd">
-  <html>
-  <head>
- 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-  	<script type="text/javascript" src="https://github.com/phstc/jquery-twitter/raw/master/src/jquery.twitter.js"></script>
-  	<script type="text/javascript" src="https://gist.github.com/raw/758591/7e03c1b6c2d060e1746fa4b29518818b63bbb1d9/jquery.twitter-example.js"></script>
-  </head>
-  <body>
-  	<div style="width: 600px; font-size: 12px;">
-  		<script>
-		/*
-		@pablocantero
-		http://pablocantero.com
-		https://github.com/phstc/jquery-twitter/
-		*/
+=== Import the JavaScript
 
-		(function(){
-			/*
-				Customized callback to show an error message on the tweets's lookup 
-				This callback is optional, the default error callback shows an alert(errorMessage)
-			*/
-			var tweetsErrorCallback = function(errorMessage, tweet){
-				var msg = 'Oops! <a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a>';
-				msg += 'Try again later or search <a href="http://twitter.com/search?q=' + tweet.toQuery() + '">directly on Twitter</a>';
-				$('#tweets').html(msg);
-			}
-			/*
-				Customized callback to show the tweets 
-				Remember that, this plugin is only for tweets's search, it does not generate view
-			*/
-			var tweetsSuccessCallback = function(data){
-				var tweetsLi = '';
-				for(var i = 0; i < data.results.length; i++){
-					var tweet = data.results[i];
-					// Calculate how many hours ago was the tweet posted
-					// http://www.lupomontero.com/fetching-tweets-with-jquery-and-the-twitter-json-api/
-			        var dateTweet = new Date(tweet.created_at);
-			        var dateNow   = new Date();
-			        var dateDiff  = dateNow - dateTweet;
-			        var hours      = Math.round(dateDiff/(1000*60*60));
-					tweetsLi += '<li>';
-					tweetsLi += '	<dl>';
-					tweetsLi += '		<dt><img src="' + tweet.profile_image_url + '" /></dt>';
-					tweetsLi += '		<dd>';
-					tweetsLi += '			<span><a href="http://twitter.com/' + tweet.from_user + '">' + tweet.from_user + '</a></span>';
-					tweetsLi += '			<span>' + hours + ' hours ago</span></dd></dl>';
-					tweetsLi += '	<div>' + tweet.text + '</div>';
-					tweetsLi += '</li>';
-				}
-				$('#tweets').html('<ul>' + tweetsLi + '</ul>'); 
-				$('#tweets').autolink({addBr:true});
-			}
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script type="text/javascript" src="https://github.com/phstc/jquery-twitter/raw/master/src/jquery.twitter.js"></script>
 
-			$(document).ready(function(){
-			    /*
-					Here is the example of the plugin usage
-				*/
-				var tweets = Twitter.tweets();
-				tweets.containing('jquery.twitter').all(tweetsSuccessCallback, tweetsErrorCallback);
-			});
-		})();
-		</script>
-  	</div>
-  	<div id="tweets">
-  		Loading tweets
-  	</div>
-  </body>
-  </html>
+=== Create success callback
+
+Remember that, this library is only for tweets's search, it does not display the tweets
+
+  /*
+  Customized callback to show the tweets
+  */
+  var tweetsSuccessCallback = function(data){
+  	var tweetsLi = '';
+  	for(var i = 0; i < data.results.length; i++){
+  		var tweet = data.results[i];
+  		// Calculate how many hours ago was the tweet posted
+  		// http://www.lupomontero.com/fetching-tweets-with-jquery-and-the-twitter-json-api/
+  		var dateTweet = new Date(tweet.created_at);
+  		var dateNow   = new Date();
+  		var dateDiff  = dateNow - dateTweet;
+  		var hours     = Math.round(dateDiff/(1000*60*60));
+  		tweetsLi += '<li>';
+  		tweetsLi += '      <dl>';
+  		tweetsLi += '              <dt><img src="' + tweet.profile_image_url + '" /></dt>';
+  		tweetsLi += '              <dd>';
+  		tweetsLi += '                      <span><a href="http://twitter.com/' + tweet.from_user + '">' + tweet.from_user + '</a></span>';
+  		tweetsLi += '                      <span>' + hours + ' hours ago</span></dd></dl>';
+  		tweetsLi += '      <div>' + tweet.text + '</div>';
+  		tweetsLi += '</li>';
+  	}
+  	$('#tweets').html('<ul>' + tweetsLi + '</ul>');
+    $('#tweets').autolink({addBr:true});
+  }
+
+=== Create error callback
+
+Customized callback to show an error message
+This callback is optional, the default error callback shows an alert(errorMessage)
+
+  var tweetsErrorCallback = function(errorMessage, tweet){
+    var msg = 'Oops! <a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a>';
+    msg += 'Try again later or search <a href="http://twitter.com/search?q=' + tweet.toQuery() + '">directly on Twitter</a>';
+    $('#tweets').html(msg);
+  }
+
+=== Create a search query
+
+  var tweets = Twitter.tweets();
+  tweets.containing('jquery.twitter').all(tweetsSuccessCallback, tweetsErrorCallback);
+
+=== Full example
+
+https://gist.github.com/758666
 
 == Test
 
