@@ -2,17 +2,15 @@
 
 == Why?
 
-The most part of the jQuery Twitter plugins available on the internet, are made for search AND display the tweets
+I found many jQuery Twitter Plugins, but most of them already worked with searching and displaying the tweets. In the project that I worked, the layout to display the tweets was specific. So I couldn't use the plugins’ layout.
 
-In the projects that I worked, that needed display the tweets, the layout for display the tweets was specific to the project. I could not to use the plugin’s layout
-
-The main idea of Twitter Search Library is only for tweets’s search. You need to implement the layout for display the tweets
+The main idea of Twitter Search Library is only for tweets search. You need to implement the layout to display the tweets
 
 == What’s the difference 
 
 The available plugins on the internet use an ugly syntax to search
 
-  $.twitter.search({from: 'pablocantero', text: 'hello+world', container: 'myDivId});
+  $.twitter.search({from: 'pablocantero', text: 'hello+world', container: 'myDivId'});
 
 Twitter Search Library is DSL based
 
@@ -57,7 +55,7 @@ The full example is available on https://gist.github.com/758666
 
 === Create success callback
 
-This library is only for tweets’s search, it does not display the tweets. You need to implement the layout for display the tweets
+This library is only for tweets search, it does not display the tweets. You need to implement the layout to display the tweets
 
   /*
   Customized callback to show the tweets
