@@ -21,8 +21,10 @@
 			This callback is optional, the default error callback shows an alert(errorMessage)
 			*/
 			var tweetsErrorCallback = function(errorMessage, tweet){
-				var msg = 'Oops! <a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a>';
-				msg += 'Try again later or search <a href="http://twitter.com/search?q=' + tweet.toQuery() + '">directly on Twitter</a>';
+				var msg = 'Oops! \
+					<a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a> \
+					Try again later or search \
+					<a href="http://twitter.com/search?q=' + tweet.toQuery() + '">directly on Twitter</a>';
 				$('#tweets').html(msg);
 			}
 			/*
@@ -39,14 +41,14 @@
 					var dateNow   = new Date();
 					var dateDiff  = dateNow - dateTweet;
 					var hours      = Math.round(dateDiff/(1000*60*60));
-					tweetsLi += '<li>';
-					tweetsLi += '      <dl>';
-					tweetsLi += '              <dt><img src="' + tweet.profile_image_url + '" /></dt>';
-					tweetsLi += '              <dd>';
-					tweetsLi += '                      <span><a href="http://twitter.com/' + tweet.from_user + '">' + tweet.from_user + '</a></span>';
-					tweetsLi += '                      <span>' + hours + ' hours ago</span></dd></dl>';
-					tweetsLi += '      <div>' + tweet.text + '</div>';
-					tweetsLi += '</li>';
+			  		tweetsLi += '<li> \
+			  		      <dl> \
+			  		              <dt><img src="' + tweet.profile_image_url + '" /></dt> \
+			  		              <dd> \
+			  		                      <span><a href="http://twitter.com/' + tweet.from_user + '">' + tweet.from_user + '</a></span> \
+			  		                      <span>' + hours + ' hours ago</span></dd></dl> \
+			  		      <div>' + tweet.text + '</div> \
+			  		</li>';
 				}
 				$('#tweets').html('<ul>' + tweetsLi + '</ul>');
 				$('#tweets').autolink({addBr:true});
@@ -57,7 +59,7 @@
 				Here is the example of the plugin usage
 				*/
 				var tweets = Twitter.tweets();
-				tweets.containing('jquery.twitter').all(tweetsSuccessCallback, tweetsErrorCallback);
+				tweets.containing('').all(tweetsSuccessCallback, tweetsErrorCallback);
 			});
 			})();
 			</script>

@@ -70,14 +70,14 @@ This library is only for tweets search, it does not display the tweets. You need
   		var dateNow   = new Date();
   		var dateDiff  = dateNow - dateTweet;
   		var hours     = Math.round(dateDiff/(1000*60*60));
-  		tweetsLi += '<li>';
-  		tweetsLi += '      <dl>';
-  		tweetsLi += '              <dt><img src="' + tweet.profile_image_url + '" /></dt>';
-  		tweetsLi += '              <dd>';
-  		tweetsLi += '                      <span><a href="http://twitter.com/' + tweet.from_user + '">' + tweet.from_user + '</a></span>';
-  		tweetsLi += '                      <span>' + hours + ' hours ago</span></dd></dl>';
-  		tweetsLi += '      <div>' + tweet.text + '</div>';
-  		tweetsLi += '</li>';
+  		tweetsLi += '<li> \
+  		      <dl> \
+  		              <dt><img src="' + tweet.profile_image_url + '" /></dt> \
+  		              <dd> \
+  		                      <span><a href="http://twitter.com/' + tweet.from_user + '">' + tweet.from_user + '</a></span> \
+  		                      <span>' + hours + ' hours ago</span></dd></dl> \
+  		      <div>' + tweet.text + '</div> \
+  		</li>';
   	}
   	$('#tweets').html('<ul>' + tweetsLi + '</ul>');
   }

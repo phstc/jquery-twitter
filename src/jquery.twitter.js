@@ -21,7 +21,6 @@ var Twitter = {
 		*/
 		var page = 1;
 		var searchUrl = 'http://search.twitter.com/search.json?q=';
-		var instance = this;
 		/*
 		result_type: 
 		mixed: In a future release this will become the default value. Include both popular and real time results in the response.
@@ -84,12 +83,12 @@ var Twitter = {
 				  url: searchUrl + publicMethods.toQuery(),
 				  success: function(data){
 					if(data.error){
-						error(data.error, instance);
+						error(data.error, publicMethods);
 					}
 					succees(data);
 				  },
 				  error: function(request, textStatus, errorThrown){
-					error(textStatus, instance);
+					error(textStatus, publicMethods);
 				  },
 				  dataType: 'jsonp',
 				  async: false
