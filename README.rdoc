@@ -37,7 +37,7 @@ This example is availiable in jquery-twitter/example.html and https://gist.githu
 
 === Create success callback
 
-Remember that, this library is only for tweets's search, it does not display the tweets
+This library is only for tweets's search, it does not display the tweets. You need to implement the layout for display the tweets
 
   /*
   Customized callback to show the tweets
@@ -62,12 +62,11 @@ Remember that, this library is only for tweets's search, it does not display the
   		tweetsLi += '</li>';
   	}
   	$('#tweets').html('<ul>' + tweetsLi + '</ul>');
-    $('#tweets').autolink({addBr:true});
   }
 
 === Create error callback
 
-Customized callback to show an error message
+Customized callback to display an error message
 This callback is optional, the default error callback shows an alert(errorMessage)
 
   var tweetsErrorCallback = function(errorMessage, tweet){
