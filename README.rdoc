@@ -28,7 +28,7 @@ http://apiwiki.twitter.com/w/page/22554756/Twitter-Search-API-Method:-search
 
 == Example
 
-This example is availiable in jquery-twitter/example.html and https://gist.github.com/758591
+The full example is availiable on https://gist.github.com/758666
 
 === Import the JavaScript
 
@@ -79,10 +79,6 @@ This callback is optional, the default error callback shows an alert(errorMessag
 
   var tweets = Twitter.tweets();
   tweets.containing('jquery.twitter').all(tweetsSuccessCallback, tweetsErrorCallback);
-
-=== Full example
-
-https://gist.github.com/758666
 
 == Test
 
