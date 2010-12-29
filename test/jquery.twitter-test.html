@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen" />
+	<script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
+	<script type="text/javascript" src="jquery.twitter.js"></script>
+
+	<script>
+	$(document).ready(function(){
+		
+		test("test all conditions", function() {
+			var tweets = new Twitter.tweets();
+			tweets.containing('hello').and('world').or('zombies').from('pablocantero').limit(4).page(2);
+			ok(tweets.toQuery(), 'hello%20world+OR+zombies%20from%3Apablocantero&rpp=4&page=2');
+		});
+
+		test("test containing condition", function() {
+			var tweets = new Twitter.tweets();
+			tweets.containing('hello')
+			ok(tweets.toQuery(), 'hello&rpp=100&page=1');
+		});
+		
+		test("test and condition", function() {
+			var tweets = new Twitter.tweets();
+			tweets.containing('hello').and('world')
+			ok(tweets.toQuery(), 'hello%20world&rpp=100&page=1');
+		});
+		
+		test("test or condition", function() {
+			var tweets = new Twitter.tweets();
+			tweets.containing('hello').or('world')
+			ok(tweets.toQuery(), 'hello+OR+world&rpp=100&page=1');
+		});
+		
+		test("test from condition", function() {
+			var tweets = new Twitter.tweets();
+			tweets.containing('hello world').from('pablocantero')
+			ok(tweets.toQuery(), 'hello world%20from=%3Apablocantero&rpp=100&page=1');
+			
+			//Test removing @
+			var tweets = new Twitter.tweets();
+			tweets.containing('hello world').from('@pablocantero')
+			ok(tweets.toQuery(), 'hello world%20from=%3Apablocantero&rpp=100&page=1');
+		});
+		
+		test("test limit condition", function() {
+			var tweets = new Twitter.tweets();
+			tweets.limit(4)
+			ok(tweets.toQuery(), '&rpp=4&page=1');
+		});
+		
+		test("test page condition", function() {
+			var tweets = new Twitter.tweets();
+			tweets.page(4)
+			ok(tweets.toQuery(), '&rpp=100&page=4');
+		});
+		
+		test("test success callback", function() {
+			//I cant test this callback because JSONP is async
+			var tweets = new Twitter.tweets();
+			var value = false;
+			var success = function(data){value = true;};
+			tweets.containing('jquery').limit(1).all(success);
+			//ok(value);
+		});
+		
+		test("test error callback", function() {
+			//I cant test this callback because JSONP is async
+			var tweets = new Twitter.tweets();
+			var value = false;
+			var success = function(data){};
+			//errorMessage: You must enter a query.
+			var error = function(errorMessage){ value = true; }
+			tweets.all(success, error);
+			//ok(value);
+		});
+	});
+	</script>
+
+</head>
+<body>
+	<h1 id="qunit-header">QUnit example</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup, will be hidden</div>
+	<div id="cccc"></div>
+</body>
+</html>

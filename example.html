@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script type="text/javascript" src="src/jquery.twitter.js"></script>
+
+	<script>
+	(function(){
+		var tweetsErrorCallback = function(errorMessage, tweet){
+			var msg = 'Oops! <a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a>';
+			msg += 'Try again later or search <a href="http://twitter.com/search?q=' + tweet.toQuery() + '">directly on Twitter</a>';
+			$('#tweets').html(msg);
+		}
+		var tweetsSuccessCallback = function(data){
+			var tweetsLi = '';
+			for(var i = 0; i < data.results.length; i++){
+				var tweet = data.results[i];
+				// Calculate how many hours ago was the tweet posted
+				// http://www.lupomontero.com/fetching-tweets-with-jquery-and-the-twitter-json-api/
+		        var dateTweet = new Date(tweet.created_at);
+		        var dateNow   = new Date();
+		        var dateDiff  = dateNow - dateTweet;
+		        var hours      = Math.round(dateDiff/(1000*60*60));
+				tweetsLi += '<li>';
+				tweetsLi += '	<dl>';
+				tweetsLi += '		<dt><img src="' + tweet.profile_image_url + '" /></dt>';
+				tweetsLi += '		<dd>';
+				tweetsLi += '			<span><a href="http://twitter.com/' + tweet.from_user + '">' + tweet.from_user + '</a></span>';
+				tweetsLi += '			<span>' + hours + ' hours ago</span></dd></dl>';
+				tweetsLi += '	<div>' + tweet.text + '</div>';
+				tweetsLi += '</li>';
+			}
+			$('#tweets').html('<ul>' + tweetsLi + '</ul>'); 
+			$('#tweets').autolink({addBr:true});
+		}
+	
+		$(document).ready(function(){
+			var tweets = Twitter.tweets();
+			tweets.containing('jquery.twitter').all(tweetsSuccessCallback, tweetsErrorCallback);
+		});
+	})();
+	</script>
+</head>
+<body>
+	<div id="tweets">
+		Loading tweets
+	</div>
+</body>
+</html>
