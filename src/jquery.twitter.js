@@ -84,6 +84,7 @@ var Twitter = {
 				  success: function(data){
 					if(data.error){
 						error(data.error, publicMethods);
+						return;
 					}
 					succees(data);
 				  },
