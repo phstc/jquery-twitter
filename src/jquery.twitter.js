@@ -5,6 +5,7 @@ http://apiwiki.twitter.com/w/page/22554756/Twitter-Search-API-Method:-search
 
 @pablocantero
 http://pablocantero.com
+https://github.com/phstc/jquery-twitter/
 */
 var Twitter = {	
 	tweets: function(){

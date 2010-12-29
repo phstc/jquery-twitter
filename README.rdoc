@@ -1,0 +1,109 @@
+= It's a Twitter Search Library implemented using jQuery
+
+== Why?
+
+The most part of the jQuery Twitter plugins availiable on the internet, are made for search AND display the tweets
+
+In the projects that I worked, that needed display the tweets, the layout for display the tweets was specific to the project, I could not to use the plugin's layout
+
+The main idea of Twitter Search Library is only for tweets's search. You need to implement the layout for display the tweets
+
+== What's the difference 
+
+The availiable plugins on the internet use an ugly syntax to search
+
+  $.twitter.search({from: 'pablocantero', text: 'hello+world', container: 'myDivId});
+
+Twitter Search Library is DSL based
+
+  var tweets = new Twitter.tweets();
+  tweets.containing('hello').and('world').from('pablocantero).limit(4).all(function(data){ alert("It's a customized function to display the tweets");});
+
+== The Twitter Search API
+
+This plugin follow the Twitter Search API documentation
+
+Twitter Search API Method: search
+http://apiwiki.twitter.com/w/page/22554756/Twitter-Search-API-Method:-search
+
+== Example
+
+This example is availiable in jquery-twitter/example.html and https://gist.github.com/758591
+
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+  	"http://www.w3.org/TR/html4/loose.dtd">
+  <html>
+  <head>
+ 	<script src="http://code.jquery.com/jquery-latest.js"></script>
+  	<script type="text/javascript" src="https://github.com/phstc/jquery-twitter/raw/master/src/jquery.twitter.js"></script>
+  	<script type="text/javascript" src="https://gist.github.com/raw/758591/7e03c1b6c2d060e1746fa4b29518818b63bbb1d9/jquery.twitter-example.js"></script>
+  </head>
+  <body>
+  	<div style="width: 600px; font-size: 12px;">
+  		<script>
+		/*
+		@pablocantero
+		http://pablocantero.com
+		https://github.com/phstc/jquery-twitter/
+		*/
+
+		(function(){
+			/*
+				Customized callback to show an error message on the tweets's lookup 
+				This callback is optional, the default error callback shows an alert(errorMessage)
+			*/
+			var tweetsErrorCallback = function(errorMessage, tweet){
+				var msg = 'Oops! <a href="http://dev.twitter.com/pages/rate-limiting">Twitter Rate Limit Exceeded</a>';
+				msg += 'Try again later or search <a href="http://twitter.com/search?q=' + tweet.toQuery() + '">directly on Twitter</a>';
+				$('#tweets').html(msg);
+			}
+			/*
+				Customized callback to show the tweets 
+				Remember that, this plugin is only for tweets's search, it does not generate view
+			*/
+			var tweetsSuccessCallback = function(data){
+				var tweetsLi = '';
+				for(var i = 0; i < data.results.length; i++){
+					var tweet = data.results[i];
+					// Calculate how many hours ago was the tweet posted
+					// http://www.lupomontero.com/fetching-tweets-with-jquery-and-the-twitter-json-api/
+			        var dateTweet = new Date(tweet.created_at);
+			        var dateNow   = new Date();
+			        var dateDiff  = dateNow - dateTweet;
+			        var hours      = Math.round(dateDiff/(1000*60*60));
+					tweetsLi += '<li>';
+					tweetsLi += '	<dl>';
+					tweetsLi += '		<dt><img src="' + tweet.profile_image_url + '" /></dt>';
+					tweetsLi += '		<dd>';
+					tweetsLi += '			<span><a href="http://twitter.com/' + tweet.from_user + '">' + tweet.from_user + '</a></span>';
+					tweetsLi += '			<span>' + hours + ' hours ago</span></dd></dl>';
+					tweetsLi += '	<div>' + tweet.text + '</div>';
+					tweetsLi += '</li>';
+				}
+				$('#tweets').html('<ul>' + tweetsLi + '</ul>'); 
+				$('#tweets').autolink({addBr:true});
+			}
+
+			$(document).ready(function(){
+			    /*
+					Here is the example of the plugin usage
+				*/
+				var tweets = Twitter.tweets();
+				tweets.containing('jquery.twitter').all(tweetsSuccessCallback, tweetsErrorCallback);
+			});
+		})();
+		</script>
+  	</div>
+  	<div id="tweets">
+  		Loading tweets
+  	</div>
+  </body>
+  </html>
+
+== Test
+
+To execute the Test suite, just open jquery.twitter-test.html in your browser. The tests were developed with http://docs.jquery.com/Qunit
+
+== Do you want to improve the jQuery Twitter Library
+
+You’re welcome to make your contributions and send them as a pull request
