@@ -28,15 +28,9 @@ var Twitter = {
 		popular: Return only the most popular results in the response.
 		*/
 		var order = 'recent';
+		var locale = '';
 		var sanitize = function(value){
-			var sanitized = value;
-			/* sanitized = sanitized.replace(/#/g, '%23'); */
-			/* sanitized = sanitized.replace(/@/g, '%40'); */
-			/* sanitized = sanitized.replace(/ /g, '%20'); */
-			/* sanitized = sanitized.replace(/\//g, '%2F'); */
-			/* sanitized = sanitized.replace(/\\/g, '%5C'); */
-			/* sanitized = sanitized.replace(/\:/g, '%3A'); */
-			return sanitized;
+			return encodeURIComponent(value);
 		};
 		var publicMethods =  {
 			containing: function(_query){
@@ -70,8 +64,12 @@ var Twitter = {
 				order = _order
 				return this;
 			},
+			locale: function(_locale) {
+				order = _order
+				return this;
+			},
 			toQuery: function(){
-				return query + from + to + '&rpp=' + limit + '&page=' + page;
+				return query + from + to + '&rpp=' + limit + '&page=' + page + locale;
 			},
 			all: function(succees, error){
 				if(error == null){
