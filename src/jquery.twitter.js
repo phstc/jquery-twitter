@@ -65,7 +65,7 @@ var Twitter = {
 				return this;
 			},
 			locale: function(_locale) {
-				order = _order
+				locale = '&locale=' + _locale
 				return this;
 			},
 			toQuery: function(){
@@ -80,7 +80,7 @@ var Twitter = {
 				$.ajax({
 				  url: searchUrl + publicMethods.toQuery(),
 				  success: function(data){
-					if(data.error){
+				  if(data.error){
 						error(data.error, publicMethods);
 						return;
 					}
