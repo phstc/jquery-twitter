@@ -43,7 +43,7 @@ The actual conditions were implemented on-demand. If you want a new condition, p
  * order([mixed, recent or popular]) - default recent
  * limit([0..100]) - default 100
  * page([page num]) - default 1 
- * locale([locale]): Optional. Specify the language of the query you are sending (only ja is currently effective). This is intended for language-specific clients and the default should work in the majority of cases
+ * locale([locale]) - optional. specify the language of the query you are sending (only ja is currently effective). This is intended for language-specific clients and the default should work in the majority of cases
 
 == Example
 
