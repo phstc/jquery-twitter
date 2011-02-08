@@ -19,8 +19,9 @@
 				.to('homer_simpson_oficial')
 				.limit(4)
 				.order('popular')
-				.page(2);
-			ok(tweets.toQuery(), 'hello%20world+OR+zombies%20from%3Apablocanteroto%3Ahomer_simpson_oficial&rpp=4&page=2&result_type=popular');
+				.page(2)
+				.locale('pt-BR');
+			ok(tweets.toQuery(), 'hello%20world+OR+zombies%20from%3Apablocanteroto%3Ahomer_simpson_oficial&rpp=4&page=2&result_type=popular&locale=pt-BR');
 		});
 
 		test("test containing condition", function() {

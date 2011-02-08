@@ -55,6 +55,7 @@ var Twitter = {
 			},
 			page: function(_page){
 				page = _page
+				return this;
 			},
 			to: function(_to){
 				to = '+to:' + _to.replace('@', ' ');
