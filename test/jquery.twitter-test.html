@@ -102,6 +102,12 @@
 			tweets.all(success, error);
 			//ok(value);
 		});
+		
+		test("test or from", function() {
+			var tweets = new Twitter.tweets();
+			tweets.containing('hello world').or().from('pablocantero')
+			ok(tweets.toQuery(), 'hello world%20+OR++from=%3Apablocantero&rpp=100&page=1&result_type=popular');
+		});
 	});
 	</script>
 

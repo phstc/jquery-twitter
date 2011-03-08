@@ -30,7 +30,10 @@ var Twitter = {
 		var order = 'recent';
 		var locale = '';
 		var sanitize = function(value){
-			return encodeURIComponent(value);
+			if(value) {
+				return encodeURIComponent(value);
+			}
+			return '';
 		};
 		var publicMethods =  {
 			containing: function(_query){

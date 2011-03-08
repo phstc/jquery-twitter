@@ -101,6 +101,21 @@ This callback is optional, the default error callback shows an alert(errorMessag
   var tweets = Twitter.tweets();
   tweets.containing('jquery.twitter').all(tweetsSuccessCallback, tweetsErrorCallback);
 
+== Combine OR and FROM queries
+
+Thanks to pheze issue/2
+
+You can combine OR and FROM queries
+
+  var tweets = new Twitter.tweets();
+  tweets.containing('jquery-twitter')
+	.or()
+	.from('pablocantero)
+	.all(function(data){ 
+	});
+	
+This query above return all tweets containing 'jquery-twitter', if the result is empty it will return all tweets from @pablocantero
+
 == Test
 
 To execute the Test suite, just open jquery.twitter-test.html in your browser. The tests were developed with http://docs.jquery.com/Qunit
@@ -112,3 +127,7 @@ You’re welcome to make your contributions and send them as a pull request or j
 http://pablocantero.com/blog/2010/12/29/jquery-twitter-search-plugin/
 
 http://plugins.jquery.com/project/jquery-twitter
+
+=== Contributors
+
+Thanks to pheze
