@@ -49,7 +49,7 @@ var Twitter = {
 				return this;			
 			},
 			from: function(_from){
-				from = '+from:' + _from.replace('@', ' ');
+				from = '+from:' + _from.replace('@', '');
 				return this;
 			},
 			limit: function(_limit){
@@ -61,7 +61,7 @@ var Twitter = {
 				return this;
 			},
 			to: function(_to){
-				to = '+to:' + _to.replace('@', ' ');
+				to = '+to:' + _to.replace('@', '');
 				return this;
 			},
 			order: function(_order){
@@ -73,7 +73,7 @@ var Twitter = {
 				return this;
 			},
 			toQuery: function(){
-				return query + from + to + '&rpp=' + limit + '&page=' + page + locale;
+				return query + from + to + '&rpp=' + limit + '&page=' + page + locale + '&result_type=' + order;
 			},
 			all: function(succees, error){
 				if(error == null){

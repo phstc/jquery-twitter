@@ -21,66 +21,66 @@
 				.order('popular')
 				.page(2)
 				.locale('pt-BR');
-			ok(tweets.toQuery(), 'hello%20world+OR+zombies%20from%3Apablocanteroto%3Ahomer_simpson_oficial&rpp=4&page=2&result_type=popular&locale=pt-BR');
+			equal(tweets.toQuery(), 'hello%20world+OR+zombies+from:pablocantero+to:homer_simpson_oficial&rpp=4&page=2&locale=pt-BR&result_type=popular');
 		});
 
 		test("test containing condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello')
-			ok(tweets.toQuery(), 'hello&rpp=100&page=1&result_type=popular');
+			equal(tweets.toQuery(), 'hello&rpp=100&page=1&result_type=recent');
 		});
 		
 		test("test and condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello').and('world')
-			ok(tweets.toQuery(), 'hello%20world&rpp=100&page=1&result_type=popular');
+			equal(tweets.toQuery(), 'hello%20world&rpp=100&page=1&result_type=recent');
 		});
 		
 		test("test or condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello').or('world')
-			ok(tweets.toQuery(), 'hello+OR+world&rpp=100&page=1&result_type=popular');
+			equal(tweets.toQuery(), 'hello+OR+world&rpp=100&page=1&result_type=recent');
 		});
 		
 		test("test from condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello world').from('pablocantero')
-			ok(tweets.toQuery(), 'hello world%20from=%3Apablocantero&rpp=100&page=1&result_type=popular');
+			equal(tweets.toQuery(), 'hello%20world+from:pablocantero&rpp=100&page=1&result_type=recent');
 			
 			//Test removing @
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello world').from('@pablocantero')
-			ok(tweets.toQuery(), 'hello world%20from=%3Apablocantero&rpp=100&page=1&result_type=popular');
+			equal(tweets.toQuery(), 'hello%20world+from:pablocantero&rpp=100&page=1&result_type=recent');
 		});
 		
 		test("test to condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello world').to('pablocantero')
-			ok(tweets.toQuery(), 'hello world%20to=%3Apablocantero&rpp=100&page=1&result_type=popular');
+			equal(tweets.toQuery(), 'hello%20world+to:pablocantero&rpp=100&page=1&result_type=recent');
 			
 			//Test removing @
 			var tweets = new Twitter.tweets();
-			tweets.containing('hello world').from('@pablocantero')
-			ok(tweets.toQuery(), 'hello world%20to=%3Apablocantero&rpp=100&page=1&result_type=popular');
+			tweets.containing('hello world').to('@pablocantero')
+			equal(tweets.toQuery(), 'hello%20world+to:pablocantero&rpp=100&page=1&result_type=recent');
 		});
 		
 		test("test limit condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.limit(4)
-			ok(tweets.toQuery(), '&rpp=4&page=1&result_type=popular');
+			equal(tweets.toQuery(), '&rpp=4&page=1&result_type=recent');
 		});
 		
 		test("test page condition", function() {
 			var tweets = new Twitter.tweets();
 			tweets.page(4)
-			ok(tweets.toQuery(), '&rpp=100&page=4&result_type=popular');
+			equal(tweets.toQuery(), '&rpp=100&page=4&result_type=recent');
 		});
 		
 		test("test order condition", function() {
 			var tweets = new Twitter.tweets();
-			ok(tweets.toQuery(), '&rpp=100&page=4&result_type=recent');
+			ok(tweets.toQuery(), '&rpp=100&page=1&result_type=recent');
 			tweets.order('mixed');
-			ok(tweets.toQuery(), '&rpp=100&page=4&result_type=mixed');
+			equal(tweets.toQuery(), '&rpp=100&page=1&result_type=mixed');
 		});
 		
 		test("test success callback", function() {
@@ -106,7 +106,7 @@
 		test("test or from", function() {
 			var tweets = new Twitter.tweets();
 			tweets.containing('hello world').or().from('pablocantero')
-			ok(tweets.toQuery(), 'hello world%20+OR++from=%3Apablocantero&rpp=100&page=1&result_type=popular');
+			equal(tweets.toQuery(), 'hello%20world+OR++from:pablocantero&rpp=100&page=1&result_type=recent');
 		});
 	});
 	</script>
